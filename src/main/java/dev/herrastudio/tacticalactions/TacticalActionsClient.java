@@ -1,10 +1,7 @@
 package dev.herrastudio.tacticalactions;
 
 import com.zigythebird.playeranim.api.PlayerAnimationAccess;
-import com.zigythebird.playeranim.api.PlayerAnimationFactory;
 import com.zigythebird.playeranim.animation.PlayerAnimationController;
-import com.zigythebird.playeranim.neoforge.event.PlayerAnimationRegisterEvent;
-import com.zigythebird.playeranimcore.enums.PlayState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -26,12 +23,6 @@ public final class TacticalActionsClient {
     private static TacticalActionState active = TacticalActionState.STANDING;
 
     private TacticalActionsClient() {}
-
-    @SubscribeEvent
-    public static void registerPlayerAnimation(PlayerAnimationRegisterEvent event) {
-        PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(LAYER, 1500,
-                player -> new PlayerAnimationController(player, (controller, state, setter) -> PlayState.STOP));
-    }
 
     @SubscribeEvent
     public static void onClientTick(ClientTickEvent.Post event) {
