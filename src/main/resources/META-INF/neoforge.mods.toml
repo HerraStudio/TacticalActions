@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+issueTrackerURL="https://github.com/HerraStudio/TacticalActions/issues"
+[[mods]]
+modId="tacticalactions"
+version="1.0.0"
+displayName="Herra Tactical Actions"
+authors="HerraStudio"
+description='''Tactical player actions: Q/E lean and Z prone with PlayerAnimationLibrary skeletal animations.'''
+[[dependencies.tacticalactions]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.251,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.tacticalactions]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1]"
+ordering="NONE"
+side="BOTH"
+[[dependencies.tacticalactions]]
+modId="player_animation_library"
+type="required"
+versionRange="[1.1.6,)"
+ordering="AFTER"
+side="CLIENT"
