@@ -1,26 +1,11 @@
 {
   "format_version": "1.8.0",
-  "model": {
-    "hip": {
-      "pivot": [
-        0,
-        12,
-        0
-      ]
-    }
-  },
-  "parents": {
-    "torso": "hip",
-    "head": "hip",
-    "left_arm": "hip",
-    "right_arm": "hip"
-  },
   "animations": {
-    "lean_left": {
+    "prone": {
       "loop": "hold_on_last_frame",
-      "animation_length": 0.3,
+      "animation_length": 0.42,
       "bones": {
-        "hip": {
+        "body": {
           "rotation": {
             "0.0": {
               "vector": [
@@ -29,19 +14,46 @@
                 0
               ]
             },
-            "0.12": {
+            "0.26": {
               "vector": [
+                78,
                 0,
-                0,
-                16
+                0
               ],
               "lerp_mode": "catmullrom"
             },
-            "0.30": {
+            "0.42": {
+              "vector": [
+                82,
+                0,
+                0
+              ],
+              "lerp_mode": "catmullrom"
+            }
+          }
+        },
+        "torso": {
+          "rotation": {
+            "0.0": {
               "vector": [
                 0,
                 0,
-                22
+                0
+              ]
+            },
+            "0.26": {
+              "vector": [
+                72,
+                0,
+                0
+              ],
+              "lerp_mode": "catmullrom"
+            },
+            "0.42": {
+              "vector": [
+                76,
+                0,
+                0
               ],
               "lerp_mode": "catmullrom"
             }
@@ -56,58 +68,25 @@
                 0
               ]
             },
-            "0.12": {
+            "0.26": {
               "vector": [
-                0,
-                0,
-                3
-              ],
-              "lerp_mode": "catmullrom"
-            },
-            "0.30": {
-              "vector": [
-                0,
-                0,
-                4
-              ],
-              "lerp_mode": "catmullrom"
-            }
-          }
-        }
-      }
-    },
-    "lean_right": {
-      "loop": "hold_on_last_frame",
-      "animation_length": 0.3,
-      "bones": {
-        "hip": {
-          "rotation": {
-            "0.0": {
-              "vector": [
-                0,
+                58,
                 0,
                 0
-              ]
-            },
-            "0.12": {
-              "vector": [
-                0,
-                0,
-                -16
               ],
               "lerp_mode": "catmullrom"
             },
-            "0.30": {
+            "0.42": {
               "vector": [
+                62,
                 0,
-                0,
-                -22
+                0
               ],
               "lerp_mode": "catmullrom"
             }
           }
         },
-        "head": {
+        "left_arm": {
           "rotation": {
             "0.0": {
               "vector": [
@@ -116,19 +95,46 @@
                 0
               ]
             },
-            "0.12": {
+            "0.26": {
               "vector": [
+                64,
                 0,
-                0,
-                -3
+                -8
               ],
               "lerp_mode": "catmullrom"
             },
-            "0.30": {
+            "0.42": {
+              "vector": [
+                68,
+                0,
+                -8
+              ],
+              "lerp_mode": "catmullrom"
+            }
+          }
+        },
+        "right_arm": {
+          "rotation": {
+            "0.0": {
               "vector": [
                 0,
                 0,
-                -4
+                0
+              ]
+            },
+            "0.26": {
+              "vector": [
+                64,
+                0,
+                8
+              ],
+              "lerp_mode": "catmullrom"
+            },
+            "0.42": {
+              "vector": [
+                68,
+                0,
+                8
               ],
               "lerp_mode": "catmullrom"
             }

@@ -2,6 +2,8 @@ package dev.herrastudio.tacticalactions;
 
 import com.zigythebird.playeranim.api.PlayerAnimationFactory;
 import com.zigythebird.playeranim.animation.PlayerAnimationController;
+import com.zigythebird.playeranimcore.api.firstPerson.FirstPersonConfiguration;
+import com.zigythebird.playeranimcore.api.firstPerson.FirstPersonMode;
 import com.zigythebird.playeranimcore.enums.PlayState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -18,7 +20,19 @@ public final class TacticalActionsClientSetup {
         event.enqueueWork(() -> PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
                 TacticalActionsClient.LAYER,
                 1500,
-                player -> new PlayerAnimationController(player, (controller, state, setter) -> PlayState.STOP)
+                player -> {
+                    PlayerAnimationController controller = new PlayerAnimationController(
+                            player, (stateController, state, setter) -> PlayState.STOP);
+                    // PAL defaults to NONE, which deliberately skips animations during its
+                    // first-person render pass. Render the animated player model so Q/E/Z
+                    // are visible from the camera as well as to other players.
+                    controller.setFirstPersonMode(FirstPersonMode.THIRD_PERSON_MODEL);
+                    controller.setFirstPersonConfiguration(
+                            new FirstPersonConfiguration(true, true, true, true, false));
+                    controller.setFirstPersonFollowsCamera(true);
+                    controller.setFirstPersonTransitionLength(2);
+                    return controller;
+                }
         ));
     }
 }

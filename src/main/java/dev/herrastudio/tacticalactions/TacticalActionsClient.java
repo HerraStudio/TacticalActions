@@ -3,13 +3,16 @@ package dev.herrastudio.tacticalactions;
 import com.zigythebird.playeranim.api.PlayerAnimationAccess;
 import com.zigythebird.playeranim.animation.PlayerAnimationController;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.CameraType;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Pose;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.ViewportEvent;
 
 /** Input state machine and PlayerAnimationLibrary controller registration. */
 @EventBusSubscriber(modid = TacticalActions.MOD_ID, value = Dist.CLIENT)
@@ -21,6 +24,7 @@ public final class TacticalActionsClient {
 
     private static boolean prone;
     private static TacticalActionState active = TacticalActionState.STANDING;
+    private static float cameraLeanRoll;
 
     private TacticalActionsClient() {}
 
@@ -38,6 +42,9 @@ public final class TacticalActionsClient {
                 prone,
                 TacticalActionsKeyMappings.LEAN_LEFT.isDown(),
                 TacticalActionsKeyMappings.LEAN_RIGHT.isDown());
+        float targetRoll = requested == TacticalActionState.LEAN_LEFT ? 10.0F
+                : requested == TacticalActionState.LEAN_RIGHT ? -10.0F : 0.0F;
+        cameraLeanRoll = Mth.lerp(0.35F, cameraLeanRoll, targetRoll);
         applyPose(mc.player, requested == TacticalActionState.PRONE);
         if (requested == active) return;
         PlayerAnimationController controller = controller(mc.player);
@@ -48,6 +55,17 @@ public final class TacticalActionsClient {
                 : requested == TacticalActionState.PRONE ? PRONE : null;
         if (animation != null) controller.triggerAnimation(animation);
         active = requested;
+    }
+
+    /** Rolls only the local first-person camera so the lean is readable immediately. */
+    @SubscribeEvent
+    public static void onCameraAngles(ViewportEvent.ComputeCameraAngles event) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player != null
+                && mc.options.getCameraType() == CameraType.FIRST_PERSON
+                && event.getCamera().getEntity() == mc.player) {
+            event.setRoll(event.getRoll() + cameraLeanRoll);
+        }
     }
 
     private static void applyPose(AbstractClientPlayer player, boolean prone) {
