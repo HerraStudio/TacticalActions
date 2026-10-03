@@ -1,3 +1,6 @@
+> **项目已合并至 [RaidCore](https://github.com/HerraStudio/RaidCore)。**
+> 本仓库作为历史归档保留，后续开发与问题反馈请前往 RaidCore。
+
 # Herra Tactical Actions
 
 一个面向 Minecraft NeoForge 1.21.1 的战术动作 Mod，提供左右探头和趴下动作。
